@@ -6,15 +6,16 @@ from awsiot import mqtt_connection_builder
 
 
 class AWSIoTCoreClient:
-    def __init__(self, iot_core_endpoint: str, client_type: str, path_to_cert: str, path_to_priv_key: str,
+    def __init__(self, iot_core_endpoint: str, thing_name: str, client_type: str, topic: str, path_to_cert: str,
+                 path_to_priv_key: str,
                  path_to_amazon_ca: str):
         self.ENDPOINT = iot_core_endpoint
-        self.CLIENT_ID = f"LatencyTestClient-{client_type}"
+        self.THING_NAME = thing_name
         self.PATH_TO_CERTIFICATE = path_to_cert
         self.PATH_TO_PRIVATE_KEY = path_to_priv_key
         self.PATH_TO_AMAZON_ROOT_CA_1 = path_to_amazon_ca
         self.MESSAGE = "Hello World"
-        self.TOPIC = "test/latency-testing"
+        self.TOPIC = topic
         self.RANGE = 20
 
         # conn info
@@ -24,6 +25,10 @@ class AWSIoTCoreClient:
         # latency info
         self._latency_float_digits = 4
         self._latencies = []
+
+    @property
+    def thing_name(self):
+        return self.THING_NAME
 
     def connect(self):
         # Spin up resources
@@ -36,12 +41,12 @@ class AWSIoTCoreClient:
             pri_key_filepath=self.PATH_TO_PRIVATE_KEY,
             client_bootstrap=client_bootstrap,
             ca_filepath=self.PATH_TO_AMAZON_ROOT_CA_1,
-            client_id=self.CLIENT_ID,
+            client_id=self.THING_NAME,
             clean_session=False,
             keep_alive_secs=6
         )
-        print("Connecting to {} with client ID '{}'...".format(
-            self.ENDPOINT, self.CLIENT_ID))
+        print("Connecting to {} with Thing Name '{}'...".format(
+            self.ENDPOINT, self.THING_NAME))
         # Make the connect() call
         connect_future = self.mqtt_connection.connect()
         # Future.result() waits until a result is available
@@ -56,7 +61,7 @@ class AWSIoTCoreClient:
         self._is_connected = False
         print("Disconnected!")
 
-    def publish(self, message: str):
+    def publish(self, message: dict):
         if not self._is_connected:
             raise RuntimeError("Please call connect() first")
         self.mqtt_connection.publish(
