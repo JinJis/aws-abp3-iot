@@ -1,5 +1,4 @@
 import time
-import uuid
 
 from mqtt_client import AWSIoTCoreClient
 
@@ -11,7 +10,7 @@ if __name__ == '__main__':
     PATH_TO_PRIVATE_KEY = f"certificates/publisher/private.pem.key"
     PATH_TO_AMAZON_ROOT_CA_1 = f"certificates/publisher/root.pem"
 
-    THING_NAME = f"{CLIENT_TYPE}-{uuid.uuid4().hex.upper()[0:6]}"
+    THING_NAME = f"{CLIENT_TYPE}-latency-test"
 
     # publish messages on mqtt topic
     iot_client = AWSIoTCoreClient(
@@ -27,10 +26,7 @@ if __name__ == '__main__':
         iot_client.connect()
 
         while True:
-            message = {
-                "thing_name": iot_client.thing_name,
-                "timestamp": str(time.time()),
-            }
+            message = str(time.time())
             iot_client.publish(message)
             time.sleep(1)
 

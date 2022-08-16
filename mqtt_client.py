@@ -1,5 +1,6 @@
 import json
 import time
+from typing import Union
 
 from awscrt import io, mqtt
 from awsiot import mqtt_connection_builder
@@ -61,7 +62,7 @@ class AWSIoTCoreClient:
         self._is_connected = False
         print("Disconnected!")
 
-    def publish(self, message: dict):
+    def publish(self, message: Union[dict, str]):
         if not self._is_connected:
             raise RuntimeError("Please call connect() first")
         self.mqtt_connection.publish(

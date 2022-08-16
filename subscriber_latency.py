@@ -8,9 +8,12 @@ if __name__ == '__main__':
     PATH_TO_PRIVATE_KEY = f"certificates/subscriber/private.pem.key"
     PATH_TO_AMAZON_ROOT_CA_1 = f"certificates/subscriber/root.pem"
 
+    THING_NAME = f"{CLIENT_TYPE}-latency-test"
+
     # publish messages on mqtt topic
     iot_client = AWSIoTCoreClient(
         iot_core_endpoint=AWS_IOT_ENDPOINT,
+        thing_name=THING_NAME,
         client_type=CLIENT_TYPE,
         topic="test/latency-testing",
         path_to_cert=PATH_TO_CERTIFICATE,
