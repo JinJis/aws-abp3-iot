@@ -7,17 +7,16 @@ from awsiot import mqtt_connection_builder
 
 
 class AWSIoTCoreClient:
-    def __init__(self, iot_core_endpoint: str, thing_name: str, client_type: str, topic: str, path_to_cert: str,
+    def __init__(self, iot_core_endpoint: str, thing_name: str, topic: str, path_to_cert: str,
                  path_to_priv_key: str,
                  path_to_amazon_ca: str):
         self.ENDPOINT = iot_core_endpoint
         self.THING_NAME = thing_name
+        self.TOPIC = topic
         self.PATH_TO_CERTIFICATE = path_to_cert
         self.PATH_TO_PRIVATE_KEY = path_to_priv_key
         self.PATH_TO_AMAZON_ROOT_CA_1 = path_to_amazon_ca
         self.MESSAGE = "Hello World"
-        self.TOPIC = topic
-        self.RANGE = 20
 
         # conn info
         self.mqtt_connection = None
