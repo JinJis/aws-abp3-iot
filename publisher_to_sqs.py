@@ -1,4 +1,3 @@
-import argparse
 import multiprocessing as mp
 import time
 from random import randrange
@@ -6,7 +5,7 @@ from random import randrange
 from mqtt_client import AWSIoTCoreClient
 
 
-def launch_publisher(thing_name, interval):
+def launch_publisher(thing_name):
     # c_proc = mp.current_process()
     # print("Running on Process", c_proc.name, "PID", c_proc.pid)
     # publish messages on mqtt topic
@@ -28,27 +27,20 @@ def launch_publisher(thing_name, interval):
                 "temperature": randrange(25, 40)
             }
             iot_client.publish(message)
-            time.sleep(interval)
+            time.sleep(0.005)
 
     except KeyboardInterrupt:
         iot_client.disconnect()
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='ABP3 Poc')
-
-    parser.add_argument('--number', '-n', type=int, help='Number of devices')
-    parser.add_argument('--interval', '-i', help='Sleep interval')
-
-    args = parser.parse_args()
 
     START_THING_NUM = 99999
-    END_THING_NUM = START_THING_NUM - args.number
+    END_THING_NUM = START_THING_NUM - 100
 
     pool = mp.Pool()  # use all available cores, otherwise specify the number you want as an argument
     for i in range(START_THING_NUM, END_THING_NUM, -1):
-        print(i)
-        pool.apply_async(launch_publisher, args=(f"PUBLISHER-{i}", args.interval))
+        pool.apply_async(launch_publisher, args=(f"PUBLISHER-{i}",))
 
     pool.close()
     pool.join()
