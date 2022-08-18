@@ -29,7 +29,7 @@ def launch_publisher(thing_name):
             iot_client.publish(message)
             time.sleep(1)
 
-    except KeyboardInterrupt:
+    except Exception:
         iot_client.disconnect()
 
 
