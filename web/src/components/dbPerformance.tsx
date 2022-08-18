@@ -232,7 +232,7 @@ const FormLoader = () => {
                 <Select
                   options={[
                     {
-                      label: "Fetch Max. Devices (100 per call)",
+                      label: "Fetch Devices (100 per call)",
                       value: "option-1"
                     },
                     {
