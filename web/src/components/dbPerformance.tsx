@@ -123,7 +123,6 @@ const FormLoader = () => {
 
   const fetchDeviceTopics = () => {
     setIotCoreStartTime(Date.now())
-    const endTime = Date.now()
     axios.get('https://ferxqgjut5.execute-api.ap-northeast-2.amazonaws.com/Prod/devices/topic', {
       params: {
         ids: deviceSelectionModels.toString()
@@ -132,6 +131,7 @@ const FormLoader = () => {
     })
       .then((response) => {
         setIotCoreEndTime(Date.now())
+        const endTime = Date.now()
         const newDeviceList = deviceList.map((x) => {
           response.data.forEach((item: any, _: any) => {
             // @ts-ignore
