@@ -27,7 +27,7 @@ def launch_publisher(thing_name):
                 "temperature": randrange(25, 40)
             }
             iot_client.publish(message)
-            time.sleep(0.00005)
+            time.sleep(0.01)
 
     except KeyboardInterrupt:
         iot_client.disconnect()
