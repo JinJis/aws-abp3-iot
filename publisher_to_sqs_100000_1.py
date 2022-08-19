@@ -27,7 +27,7 @@ def launch_publisher(thing_name):
                 "temperature": randrange(25, 40)
             }
             iot_client.publish(message)
-            time.sleep(0.005)
+            time.sleep(0.01)
 
     except KeyboardInterrupt:
         iot_client.disconnect()
@@ -35,7 +35,7 @@ def launch_publisher(thing_name):
 
 if __name__ == '__main__':
 
-    START_THING_NUM = 99999
+    START_THING_NUM = 89999
     END_THING_NUM = START_THING_NUM - 100
 
     pool = mp.Pool()  # use all available cores, otherwise specify the number you want as an argument
