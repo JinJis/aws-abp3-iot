@@ -5,6 +5,7 @@ import boto3
 if __name__ == "__main__":
     THING_NAME = 'JITP-TEST'
     IOT_CORE_REGION = "ap-northeast-2"
+    THING_TYPE_NAME = "ABP3-TEST"
     PATH_TO_DEVICE_CERT = "/certificates/jitp/jitpTestDevice.pem"
     PATH_TO_ROOT_CA = "/certificates/jitp/rootCA.pem"
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -12,7 +13,13 @@ if __name__ == "__main__":
     iot_client = boto3.client('iot', IOT_CORE_REGION)
 
     # Step 1. Create thing
-    iot_client.create_thing(thingName=THING_NAME)
+    iot_client.create_thing(thingName=THING_NAME,
+                            thingTypeName=THING_TYPE_NAME,
+                            attributePayload={
+                                'attributes': {
+                                    'thingId': '2000000'
+                                }
+                            })
     print(f"Successfully created thing(={THING_NAME})")
 
     # Step 2. Register certificate signed by self-signed CA
