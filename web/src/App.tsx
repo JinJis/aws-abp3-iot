@@ -7,7 +7,9 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 import DBPerformancePage from "./components/dbPerformance"
 import KVSIntegrationPage from "./components/kvsIntegration"
+import JITProvisioningPage from "./components/JITProvisioning";
 import {createTheme, ThemeProvider} from "@mui/material";
+import LowerLatencyPage from "./components/lowerLatency";
 
 const theme = createTheme({
   typography: {
@@ -23,7 +25,9 @@ function App() {
    * And then import it and add it to this list to let it show up as a route and in the side nav
    */
   const componentMapping = {
+    "Latency Improvement": LowerLatencyPage,
     "DB Performance": DBPerformancePage,
+    "JIT Provisioning": JITProvisioningPage,
     "KVS Integration": KVSIntegrationPage,
   };
 

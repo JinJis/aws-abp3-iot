@@ -14,7 +14,6 @@ if __name__ == '__main__':
     iot_client = AWSIoTCoreClient(
         iot_core_endpoint=AWS_IOT_ENDPOINT,
         thing_name=THING_NAME,
-        client_type=CLIENT_TYPE,
         topic="test/latency-testing",
         path_to_cert=PATH_TO_CERTIFICATE,
         path_to_priv_key=PATH_TO_PRIVATE_KEY,

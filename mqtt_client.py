@@ -94,5 +94,5 @@ class AWSIoTCoreClient:
         min_ms = min(self._latencies) * 1000
         max_ms = max(self._latencies) * 1000
         avg_ms = round(sum(self._latencies) / len(self._latencies), 4) * 1000
-        print(f'Latency results (2 RTT) - min:{min_ms}ms max:{max_ms}ms avg:{avg_ms}ms')
-        print(f'Latency results (1 RTT) - min:{min_ms / 2}ms max:{max_ms / 2}ms avg:{avg_ms / 2}ms')
+        print(f'> RTT - min:{min_ms}ms max:{max_ms}ms avg:{avg_ms}ms')
+        print(f'> Latency - min:{min_ms / 2}ms max:{max_ms / 2}ms avg:{avg_ms / 2}ms')

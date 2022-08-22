@@ -141,7 +141,7 @@ const FormLoader = () => {
               // @ts-ignore
               x.temperature = item.temperature
               // @ts-ignore
-              x.latency = Math.round(((endTime / 1000) - item.timestamp) * 100) / 100
+              x.latency = Math.abs(Math.round(((endTime / 1000) - item.timestamp) * 100) / 100)
             }
           })
           return x;
